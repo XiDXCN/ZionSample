@@ -303,13 +303,67 @@ Figure: Azure stream analytics configure of input
 Figure:Azure stream analytics configure of output
 
     
+** Azure SQL Database Security Configuration**
+
+When using Azure SQL database, high-end security feature can be easily configured to ensure data security.
+Below are some of the configuration.
+
+![](../images/ZionChina05_SQL_Security01.png)
+
+Figure: Dynamic data masking helps prevent unauthorized access to sensitive data
+
+![](../images/ZionChina06_SQL_Security02.png)
+
+Figure: Transparent Data Encryption
+
+
+** Azure Machine Learning**
+
+Azure Machine Learning was used to fundamentally improve the whole solution's analytic and predication level
+
+![](../images/ZionChina07_AML.png)
+
+Figure: Azure Machine Learning Studio
+
+
+
+**PowerBI embedded on ZionChina user portal**
+
+The solution use Microsoft PowerBI to bring visualization of the data insight to end users.
+
+![](../images/ZionChina08_DataVisz_PowerBI.png)
+
+Figures: PowerBI embedded as key data visualization technology
+
+
+
 
 
 ##Opportunities going forward
 
-This section is optional, but if you have details on how the customer plans to proceed or what more they hope to accomplish, please include.
+ZionChina is expanding their solutions to top hispitals, healthcare management organization. With the new Azure IoT, Machine Learning and full stack powered by Azure. ZionChina is able to expand their business more agile and cost effective.
+
+##Great Team##
+
+In past months, ZionChina and Microsoft DX China team partner together to deep discuss how to integrate Azure services into the solutions. With both teams' deep involvement and investment, we made big progress to empower the solution with intelligent Azure Services.
+
+![](../images/ZionChina09_Team01.jpg)
+
+Figure: ZionChina and Microsoft DX team work together.
+
+![](../images/ZionChina10_Team02.jpg)
+
+Figure: ZionChina and Microsoft DX team Hackfest together.
+
+
+![](../images/ZionChina11_Team03.jpg)
+
+Figure: Architect reDesign and key issues disucsing
+
+
+
 
 ##Conclusion##
 
-
+With Microsoft Azure IoT, Machine Learning, SQL DB and Stream Analytics. ZionChina has evolved their solution to the next level. Together, we believe the new technologies, industry experts can work together and bring better life to more patients. 
 
