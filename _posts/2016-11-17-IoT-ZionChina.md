@@ -286,8 +286,21 @@ public class SendMessage2Iothub{
 
 
 
+
+
 **Stream Analytics**
 
+Microsoft Azure Stream Analytics was used to real time process ingested data on IoT hub and streamly put useful data for analyzing onto Azure SQL DB.
+
+![](../images/ZionChina03_SA_input.png)
+
+Figure: Azure stream analytics configure of input
+
+
+
+![](../images/ZionChina04_SA_output.png)
+
+Figure:Azure stream analytics configure of output
 
     
 
