@@ -4,7 +4,7 @@ title:  "ZionChina, Intelligent Diabetes Management with Azure IoT and Machine L
 author: "Xi Wang"
 author-link: "#"
 #author-image: "{{ site.baseurl }}/images/authors/photo.jpg"
-date:   2016-11-17 20:13:28
+date:   2016-11-17 21:42:28
 categories: IoT
 color: "blue"
 #image: "{{ site.baseurl }}/images/ZionChina00_Logo.png" #should be ~350px tall
@@ -360,7 +360,9 @@ Figure: ZionChina and Microsoft DX team Hackfest together.
 
 Figure: Architect reDesign and key issues disucsing
 
+![](../images/ZionChina12_Team04.jpg)
 
+Figure: Architect discussion
 
 
 ##Conclusion##
