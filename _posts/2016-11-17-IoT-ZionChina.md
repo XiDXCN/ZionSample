@@ -37,7 +37,8 @@ Future potential to their business and operations.
 ##Architecture##
 
 This is the architecture of ZionChina Solution.
-![](ZionSample/images/ZionChina01_Arch.jpg)
+![](../images/ZionChina01_Arch.jpg)
+![](https://github.com/XiDXCN/ZionSample/blob/master/images/ZionChina01_Arch.jpg)
 
 
 ##Device used & Code artifacts
