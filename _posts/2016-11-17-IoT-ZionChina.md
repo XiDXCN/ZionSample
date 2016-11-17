@@ -7,7 +7,7 @@ author-link: "#"
 date:   2016-11-17
 categories: IoT
 color: "blue"
-![](/images/ZionChina00_Logo.png) #should be ~350px tall
+![](ZionSample/images/ZionChina00_Logo.png) #should be ~350px tall
 excerpt: This article is aimed a providing a template to create IoT Ascend+ win articles.
 language: English
 verticals: Healthcare
@@ -37,7 +37,7 @@ Future potential to their business and operations.
 ##Architecture##
 
 This is the architecture of ZionChina Solution.
-![](./images/ZionChina01_Arch.jpg)
+![](ZionSample/images/ZionChina01_Arch.jpg)
 
 
 ##Device used & Code artifacts
