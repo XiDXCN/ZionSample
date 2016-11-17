@@ -1,16 +1,16 @@
 ---
 layout: post
-title:  "ZionChina, Intelligent Diabetes Management with Azure IoT and Machine Learning "
+title:  "ZionChina, Intelligent Diabetes Management with Azure IoT and Machine Learning"
 author: "Xi Wang"
 author-link: "#"
 #author-image: "{{ site.baseurl }}/images/authors/photo.jpg"
-date:   2016-11-17
+date:   2016-11-17 20:13:28
 categories: IoT
 color: "blue"
-![](ZionSample/images/ZionChina00_Logo.png) #should be ~350px tall
-excerpt: This article is aimed a providing a template to create IoT Ascend+ win articles.
-language: English
+#image: "{{ site.baseurl }}/images/ZionChina00_Logo.png" #should be ~350px tall
+excerpt: Microsoft teamed up with ZionChina 2016 to help them envolve their solution with Azure IoT, Machine Learning and serveral key Azure technologies.
 verticals: Healthcare
+language: English
 ---
 
 
