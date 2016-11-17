@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "ZionChina, Intelligent Diabetes Management with Azure IoT and Machine Learning"
+title:  "ZionChina, Intelligent Diabetes Management with Azure IoT and Machine Learning "
 author: "Xi Wang"
 author-link: "#"
 #author-image: "{{ site.baseurl }}/images/authors/photo.jpg"
