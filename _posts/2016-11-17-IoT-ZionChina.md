@@ -95,8 +95,198 @@ Below are the key technical components with code artifacts
 
 **IoT SDK Integration**
 
-Using Microsoft Azure IoT Hub to real time transfer data to Cloud.
+Using Microsoft Azure IoT Hub to real time transfer data to Cloud. In this project, the glucose device transfer data via bluetooth to mobile app on Andriod and iOS. Below are key code to integrate IoT SDK with the app.
 
+- below code was used to register devices with IoThub
+
+```python
+def generate_sas_token(uri, key, policy_name='device', expiry=3600):
+	"""
+	generate authorization
+	uri: 主机名
+	key: Iothub中共享访问策略中的主密钥
+	policy_name: 共享策略名称
+	expiry: 超时时间
+	"""
+    ttl = time() + expiry
+    sign_key = "%s\n%d" % (uri, int(ttl))
+    signature = b64encode(HMAC(b64decode(key), sign_key, sha256).digest())
+
+    return 'SharedAccessSignature ' + urlencode({
+        'sr' :  uri,
+        'sig': signature,
+        'se' : str(int(ttl)),
+        'skn': policy_name
+    })
+
+
+class DeviceIdentify:
+	'''
+	Iot device register
+	'''
+	def __init__(self, uri, deviceId, version, authorization):
+		"""
+		uri: 'https://'' + 主机名 + '/'
+		deviceId: 表示用户的硬件设备的一个字符串
+		version: '2016-02-03'
+		authorization: sas_token
+		"""
+		self.uri = uri
+		self.deviceId = deviceId
+		self.version = version
+		self.url = self.uri + self.deviceId + "?api-version=" + self.version
+		self.values = {
+			"deviceId": self.deviceId
+		}
+		self.authorization = authorization
+
+	def identifyDevice(self):
+		data = json.dumps(self.values)
+		#context = ssl._create_unverified_context()#python 2.7之后, 需要验证ssl
+
+		request = urllib2.Request(self.url, data, {"Authorization": self.authorization, "Content-Type": "application/json"})
+		request.get_method = lambda: "PUT"
+
+		try:
+			response = urllib2.urlopen(request)###http error 409 conflict 重复注册的问题
+			#response = urllib2.urlopen(request, context=context)###python 2.7之后, 这样使用
+			result = response.read()
+		except Exception as err:
+			return {
+				'status': 'unabled',
+				'error': {
+					'description': str(err),
+					'code': 95000
+				}
+			}
+		else:
+			return json.loads(result)
+
+
+
+
+```
+
+- Below code was used to send messagr from Andriod to IoTHub
+
+```java
+
+
+public class SendMessage2Iothub{
+
+    // 发送信息到iothub
+	/**
+	 * sendIOTMessage 向iothub发送消息
+	 * @param connString 连接字符串,如：HostName=*******;DeviceId=*****;SharedAccessKey=*******"
+	 * @param obj 发送对象：字符串、json等
+	 * @return
+	 * @throws Exception
+	 */
+	private void sendIOTMessage(String connString, Object obj) throws URISyntaxException, IOException {
+        IotHubClientProtocol protocol = IotHubClientProtocol.AMQPS;
+        DeviceClient client = new DeviceClient(connString, protocol);
+        try {
+            client.open();
+        } catch(IOException e1) {
+            System.out.println("Exception while opening IoTHub connection: " + e1.toString());
+        } catch(Exception e2) {
+            System.out.println("Exception while opening IoTHub connection: " + e2.toString());
+        }
+        try {
+            String msgStr = obj.toString();
+			Message msg = new Message(msgStr);
+            msg.setProperty("messageCount", protocol.name());
+            System.out.println(msgStr);
+            EventCallback eventCallback = new EventCallback();
+            client.sendEventAsync(msg, eventCallback, cGlucoseExchangeEntity.getPid());
+        } catch (Exception e) {
+        }
+
+    }
+	
+}
+
+```
+
+- below code was used to send messagr from iOS to IoTHub
+
+```
+//
+//  LotHubSingleton.m
+//  diabetesDataCenter
+//
+//  Created by 将离。 on 2016/10/19.
+//  Copyright © 2016年 zionchina. All rights reserved.
+//
+
+#import "LotHubSingleton.h"
+
+#import <AFNetworking.h>
+
+#define HOSTNAME @""
+#define HOSTURL [NSString stringWithFormat:@"https://%@",HOSTNAME]
+
+#define SendMessagePath @"/messages/events"
+#define ReciveMessagePath @"/messages/devicebound"
+
+#define DeiviceId @""
+#define DevicePrimaryKey @""
+#define DeviceSasToken @""
+
+@interface LotHubSingleton()
+
+@end
+
+@implementation LotHubSingleton
+
+// 发送信息到iothub
+/**
+ * sendSendMessageToLotHubRequestWithDicitionary 向iothub发送消息
+ * @param messageDictionary 发送对象：字符串、json等
+ * @return
+ * @throws Exception
+ */
+
+- (void)sendSendMessageToLotHubRequestWithDicitionary:(NSDictionary *)messageDictionary
+{
+    AFSecurityPolicy * securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
+    securityPolicy.allowInvalidCertificates = YES;
+    securityPolicy.validatesDomainName = NO;
+    
+    NSString *postUrl = [NSString stringWithFormat:@"%@/devices/%@%@?api-version=2016-02-03",HOSTURL,DeviceId,SendMessagePath];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"application/json", @"text/json", @"text/javascript",@"application/javascript",nil];
+    manager.securityPolicy = securityPolicy;
+    manager.requestSerializer.timeoutInterval = 10.f;
+    
+    NSMutableURLRequest *mUrlRequest = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:postUrl parameters:nil error:nil];
+    mUrlRequest.HTTPBody = [NSJSONSerialization dataWithJSONObject:messageDictionary options:NSJSONWritingPrettyPrinted error:nil];
+    [mUrlRequest setValue:DeviceSasToken forHTTPHeaderField:@"authorization"];
+    
+    [[manager dataTaskWithRequest:mUrlRequest completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        if (!error) {
+            NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
+            NSLog(@"statusCode: %ld responseObject: %@",statusCode, responseObject);
+        } else {
+            NSLog(@"Error: %@, %@, %@", error, response, responseObject);
+        }
+    }] resume];
+    
+}
+
+
+
+
+
+
+@end
+
+```
+
+
+
+**Stream Analytics**
 
 
     
