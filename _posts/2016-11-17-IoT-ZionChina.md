@@ -302,8 +302,9 @@ Figure: Azure stream analytics configure of input
 
 Figure:Azure stream analytics configure of output
 
-    
-** Azure SQL Database Security Configuration**
+
+**Azure SQL Database Security Configuration**
+
 
 When using Azure SQL database, high-end security feature can be easily configured to ensure data security.
 Below are some of the configuration.
@@ -317,7 +318,7 @@ Figure: Dynamic data masking helps prevent unauthorized access to sensitive data
 Figure: Transparent Data Encryption
 
 
-** Azure Machine Learning**
+**Azure Machine Learning**
 
 Azure Machine Learning was used to fundamentally improve the whole solution's analytic and predication level
 
